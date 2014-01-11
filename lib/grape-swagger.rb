@@ -70,7 +70,7 @@ module Grape
 
               {
                 apiVersion: api_version,
-                swaggerVersion: "1.1",
+                swaggerVersion: "1.2",
                 basePath: parse_base_path(base_path, request),
                 operations:[],
                 apis: routes_array
@@ -93,6 +93,8 @@ module Grape
                     :summary => route.route_description || '',
                     :nickname   => route.route_method + route.route_path.gsub(/[\/:\(\)\.]/,'-'),
                     :httpMethod => route.route_method,
+                    :produces => ['application/json'],
+                    :consumes => ['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data'],
                     :parameters => parse_header_params(route.route_headers) +
                       parse_params(route.route_params, route.route_path, route.route_method,
                                    route.route_body_param)
